@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h4 class="mt-4">Add expense details</h4>
+            <form action="/addExpense" method="POST">
+                <div class="form-group">
+                    <label for="">Name</label>
+                    <input class="form-control" type="text" id="name" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="">Date</label>
+                    <input class="form-control" name="date" type="date" id="date">
+                </div>
+                <div class="form-group">
+                    <label for="">Expense Amount</label>
+                    <input class="form-control" name="amount" type="text" id="amount" placeholder="Amount">
+                </div>
+                <div class="form-group">
+                    <label for="">Expense Category</label>
+                    <select class="form-control" name="category" id="category">
+                        <option value="food">Food</option>
+                        <option value="groceries">Groceries</option>
+                        <option value="entertainment">Entertainment</option>
+                        <option value="sports">Sports</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for=""></label>
+                    <input class="btn btn-primary" type="submit" name="submit" value="Submit">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

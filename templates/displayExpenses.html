@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="container">
+    <h3 class="mt-5">Expenses</h3>
+    {% for expense in expenses %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow mb-2 bg-white rounded">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-2">{{expense.expenseName}}</div>
+                        <div class="col-md-2">{{expense.expenseDate}}</div>
+                        <div class="col-md-2">${{expense.expenseAmount}}</div>
+                        <div class="col-md-2">
+                            <span class="badge badge-primary">{{expense.expenseCategory}}</span>
+                        </div>
+                        <div class="col-md-2"><a href="updateExpense/{{expense.id}}" class="btn btn-success">Edit</a></div>
+                        <div class="col-md-2"><a href="deleteExpense/{{expense.id}}" class="btn btn-danger">Delete</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="row">
+        <div class="col-md-6">
+            <h3 class="mt-5">Expense Breakdown</h3>
+            <div class="card shadow bb-2 bg-white rounded">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">Food</div>
+                        <div id="sum_food" class="col-md-6">{{sum_food}}</div> 
+                    </div>
+                </div>
+            </div>
+            <div class="card shadow bb-2 bg-white rounded">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">Entertainment</div>
+                        <div id="sum_entertainment" class="col-md-6">{{sum_entertainment}}</div> 
+                    </div>
+                </div>
+            </div>
+            <div class="card shadow bb-2 bg-white rounded">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">Groceries</div>
+                        <div id="sum_groceries" class="col-md-6">{{sum_groceries}}</div> 
+                    </div>
+                </div>
+            </div>
+            <div class="card shadow bb-2 bg-white rounded">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">Sports</div>
+                        <div id="sum_sports" class="col-md-6">{{sum_sports}}</div> 
+                    </div>
+                </div>
+            </div>
+            <div class="card shadow bb-2 bg-white rounded">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">Other</div>
+                        <div id="sum_other" class="col-md-6">{{sum_other}}</div> 
+                    </div>
+                </div>
+            </div>
+            <div class="card shadow bb-2 bg-white rounded">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">Total</div>
+                        <div class="col-md-6">{{sum}}</div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="md-col-6">
+            <h3 class="mt-5">Graphical Expense Breakdown</h3>
+            <canvas id="myChart" width="400" height="400"></canvas>
+              <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+              <script>
+                let food = document.getElementById('sum_food').innerHTML
+                let entertainment = document.getElementById('sum_entertainment').innerHTML
+                let groceries = document.getElementById('sum_groceries').innerHTML
+                let sports = document.getElementById('sum_sports').innerHTML
+                let other = document.getElementById('sum_other').innerHTML
+
+                const ctx = document.getElementById('myChart');
+              
+                new Chart(ctx, {
+                  type: 'pie',
+                  data: {
+                    labels: ['Food', 'Entertainment', 'Groceries', 'Sports', 'Other'],
+                    datasets: [{
+                      label: '# of Votes',
+                      data: [food, entertainment, groceries, sports, other],
+                      borderWidth: 1
+                    }]
+                  },
+                  options: {
+                    scales: {
+                      y: {
+                        beginAtZero: true
+                      }
+                    }
+                  }
+                });
+              </script>
+              
+        </div>
+    </div>
+
+</div>
+{% endblock %}
